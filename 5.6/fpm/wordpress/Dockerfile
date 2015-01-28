@@ -3,9 +3,13 @@ FROM php:5.6-fpm
 # Install modules
 RUN apt-get update && apt-get install -y \
     file libmcrypt-dev libpng12-dev libfreetype6-dev libjpeg62-turbo-dev libmemcached-dev \
-    && docker-php-ext-install mcrypt mysql mysqli gd \
-    && echo "" | pecl install -a memcached \
-    && echo "extension=memcached.so" > /usr/local/etc/php/conf.d/ext-memcached.ini
+ && docker-php-ext-install mcrypt mysql mysqli gd \
+ && echo "" | pecl install -a memcached \
+ && echo "extension=memcached.so" > /usr/local/etc/php/conf.d/ext-memcached.ini
+
+COPY bin/mo /usr/local/bin/mo
+
+COPY php-fpm.conf.mo /usr/local/etc/php-fpm.conf.mo
 
 COPY docker-entrypoint.sh /entrypoint.sh
 

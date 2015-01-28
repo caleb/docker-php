@@ -7,4 +7,8 @@ RUN apt-get update && apt-get install -y \
     && echo "" | pecl install -a memcached \
     && echo "extension=memcached.so" > /usr/local/etc/php/conf.d/ext-memcached.ini
 
+COPY docker-entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+
 CMD ["php-fpm"]

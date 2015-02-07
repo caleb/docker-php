@@ -1,19 +1,6 @@
-FROM php:5.6-fpm
+FROM docker.rodeopartners.com/php:5.6-fpm
 
-ADD https://raw.githubusercontent.com/caleb/mo/master/mo /usr/local/bin/mo
-
-# Install modules
-RUN apt-get update && apt-get install -y \
-    file libmcrypt-dev libpng12-dev libfreetype6-dev libjpeg62-turbo-dev libmemcached-dev \
- && docker-php-ext-install mcrypt mysql mysqli gd \
+# Install memcached modules
+RUN apt-get update && apt-get install -y libmemcached-dev \
  && echo "" | pecl install -a memcached \
- && echo "extension=memcached.so" > /usr/local/etc/php/conf.d/ext-memcached.ini \
- && chmod +x /usr/local/bin/mo
-
-COPY php-fpm.conf.mo /usr/local/etc/php-fpm.conf.mo
-
-COPY docker-entrypoint.sh /entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
-
-CMD ["php-fpm"]
+ && echo "extension=memcached.so" > /usr/local/etc/php/conf.d/ext-memcached.ini

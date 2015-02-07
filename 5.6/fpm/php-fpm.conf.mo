@@ -11,8 +11,8 @@ daemonize = no
 ; if we send this to /proc/self/fd/1, it never appears
 access.log = /proc/self/fd/2
 
-user = {{PHP_FPM_USERNAME}}
-group = {{PHP_FPM_GROUPNAME}}
+user = www-data
+group = www-data
 
 listen = [::]:{{PHP_FPM_PORT}}
 

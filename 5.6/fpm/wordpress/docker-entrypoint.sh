@@ -15,14 +15,22 @@ for var in ${!WORDPRESS_*}; do
   value="${!var}"
   if [[ "${var}" =~ ^WORDPRESS_(.*)$ ]]; then
     const_name="${BASH_REMATCH[1]}"
-    echo "define('${const_name}', '${value}');" >> $env_file
+
+    if [[ "${const_name}" =~ ^UNQUOTED_(.*)$ ]]; then
+      const_name="${BASH_REMATCH[1]}"
+
+      # Boolean values come from docker-compose as False and True
+      # make sure we downcase them
+      if [ "${value,,}" = true ] || [ "${value,,}" = false ]; then
+        value="${value,,}"
+      fi
+    else
+      value="'${value}'"
+    fi
+
+    echo "define('${const_name}', ${value});" >> $env_file
   fi
 done
-
-# If there is a memcached server, turn on WP_CACHE so WP-FFPC is enabled
-if [ -n "${MEMCACHED_ADDR}" ] && [ -n "${MEMCACHED_PORT}" ]; then
-  echo "define('WP_CACHE', true);" >> $env_file
-fi
 
 echo "?>" >> $env_file
 

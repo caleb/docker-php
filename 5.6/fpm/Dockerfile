@@ -11,7 +11,7 @@ RUN mkdir -p /helpers \
 &&  rm /tmp/helpers.tar.gz
 
 # Install the base system
-RUN /bin/bash /helpers/install_base.sh
+RUN /bin/bash /helpers/install-base.sh
 
 ENV PHP_FPM_PORT=9000 \
 PHP_FPM_MAX_CHILDREN=5 \

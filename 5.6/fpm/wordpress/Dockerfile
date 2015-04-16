@@ -9,3 +9,5 @@ RUN apt-get update && apt-get install -y libmemcached-dev \
 # Move the fpm entrypoint out of the way so we can have our own and call it
 RUN mv /entrypoint.sh /fpm-entrypoint.sh
 ADD docker-entrypoint.sh /entrypoint.sh
+
+ADD wordpress_constants /tmp/wordpress_constants

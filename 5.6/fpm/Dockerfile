@@ -24,12 +24,11 @@ PHP_FPM_POST_MAX_SIZE=8M
 # Install modules
 RUN apt-get update && apt-get install -y file libmcrypt-dev libpng12-dev libfreetype6-dev libjpeg62-turbo-dev \
 &&  docker-php-ext-install mcrypt mysql mysqli gd \
-&&  rm -rf /var/lib/apt/lists/* \
-&&  mkdir /usr/local/etc/php/fpm
+&&  rm -rf /var/lib/apt/lists/*
 
 COPY php-fpm.conf.mo /usr/local/etc/php-fpm.conf.mo
 COPY docker-entrypoint.sh /entrypoint.sh
-COPY php.ini.mo /usr/local/etc/php/fpm/php.ini.mo
+COPY php.ini.mo /usr/local/etc/php/php.ini.mo
 
 ENTRYPOINT ["/entrypoint.sh"]
 

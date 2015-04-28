@@ -61,7 +61,13 @@ done 10< /tmp/wordpress_constants/number_or_string
 
 # Generate the salts and keys
 if [ -z "${SKIP_KEY_GENERATION}" ]; then
-  curl https://api.wordpress.org/secret-key/1.1/salt/ >> $env_file
+  # If none of the keys and salts are defined, go out to wordpress.org to generate the keys
+  if [ -z "${AUTH_KEY}" ] && [ -z "${AUTH_SALT}" ] && \
+       [ -z "${SECURE_AUTH_KEY}" ] && [ -z "${SECURE_AUTH_SALT}" ] && \
+       [ -z "${LOGGED_IN_KEY}" ] && [ -z "${LOGGED_IN_SALT}" ] && \
+       [ -z "${NONCE_KEY}" ] && [ -z "${NONCE_SALT}" ]; then
+    curl https://api.wordpress.org/secret-key/1.1/salt/ >> $env_file
+  fi
 fi
 
 echo "?>" >> $env_file

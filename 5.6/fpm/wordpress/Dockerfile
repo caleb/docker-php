@@ -1,4 +1,4 @@
-FROM docker.rodeopartners.com/php:5.6-fpm
+FROM caleb/php:5.6-fpm
 
 # Install memcached modules
 RUN apt-get update && apt-get install -y libmemcached-dev \

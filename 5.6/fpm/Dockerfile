@@ -22,7 +22,8 @@ PHP_FPM_UPLOAD_MAX_FILESIZE=2M \
 PHP_FPM_POST_MAX_SIZE=8M
 
 # Install modules
-RUN apt-get update && apt-get install -y file libmcrypt-dev libpng12-dev libfreetype6-dev libjpeg62-turbo-dev \
+RUN apt-get update && apt-get install -y libgd-dev file libmcrypt-dev libpng12-dev libfreetype6-dev libjpeg62-turbo-dev \
+&&  docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
 &&  docker-php-ext-install mcrypt mysql mysqli gd \
 &&  rm -rf /var/lib/apt/lists/*
 

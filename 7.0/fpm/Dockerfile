@@ -28,7 +28,7 @@ RUN apt-get update && apt-get install -y libgd-dev file libmcrypt-dev libpng12-d
 &&  rm -rf /var/lib/apt/lists/*
 
 # Enable opcode caching
-RUN echo "zend_extension=opcache.so" > /usr/local/etc/php/conf.d/ext-opcache.in
+RUN echo "zend_extension=opcache.so" > /usr/local/etc/php/conf.d/ext-opcache.ini
 
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
